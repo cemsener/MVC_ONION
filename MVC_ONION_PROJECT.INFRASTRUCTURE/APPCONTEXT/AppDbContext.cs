@@ -64,9 +64,9 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.APPCONTEXT
             }
 
             entry.State = EntityState.Modified;
-            entry.DeletedDate = DateTime.Now;
-            entry.DeletedBy = userId;
-            entry.Status = Status.Deleted;
+            entity.DeletedDate = DateTime.Now;
+            entity.DeletedBy = userId;
+            entity.Status = Status.Deleted;
 
         }
 

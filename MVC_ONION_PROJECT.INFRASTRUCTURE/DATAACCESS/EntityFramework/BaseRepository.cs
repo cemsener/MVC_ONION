@@ -19,10 +19,10 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.DATAACCESS.EntityFramework
 
         private readonly DbSet<TEntity> _table;
 
-        public BaseRepository(DbContext context, DbSet<TEntity> table)
+        public BaseRepository(DbContext context)
         {
             _context = context;
-            _table = table;
+            _table = _context.Set<TEntity>();
         }
 
         public async Task<TEntity> AddAsync(TEntity entity)
@@ -81,7 +81,7 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.DATAACCESS.EntityFramework
 
         public async Task<TEntity?> GetByIdAsync(Guid id, bool tracking = true)
         {
-            return await GetAllActives(tracking).FirstOrDefaultAsync(x=>x.Id == id);
+            return await GetAllActives(tracking).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public int SaveChange()
@@ -105,5 +105,6 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.DATAACCESS.EntityFramework
             var values = _table.Where(x => x.Status != DOMAIN.ENUMS.Status.Deleted);
             return tracking ? values : values.AsNoTracking();
         }
+
     }
 }

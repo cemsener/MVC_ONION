@@ -1,10 +1,12 @@
 using MVC_ONION_PROJECT.INFRASTRUCTURE.EXTENSION;
+using MVC_ONION_PROJECT.APPLICATION.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructureService(builder.Configuration);
+builder.Services.AddApplicationService();
 
 var app = builder.Build();
 
