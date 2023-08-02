@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MVC_ONION_PROJECT.DOMAIN.CORE.BASE
 {
-    public class BaseEntity : IUpdateableEntity
+    public abstract class BaseEntity : IUpdateableEntity
     {
         public string? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }

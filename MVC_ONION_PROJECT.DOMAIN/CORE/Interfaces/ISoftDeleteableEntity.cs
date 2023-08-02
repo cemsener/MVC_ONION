@@ -9,7 +9,7 @@ namespace MVC_ONION_PROJECT.DOMAIN.CORE.Interfaces
     public interface ISoftDeleteableEntity:IEntity, ICreatableEntity, IUpdateableEntity
     {
         string? DeletedBy { get; set; }
-        DateTime? DeletedTime { get; set; }
+        DateTime? DeletedDate { get; set; }
 
     }
 }

@@ -8,15 +8,10 @@ using System.Threading.Tasks;
 
 namespace MVC_ONION_PROJECT.DOMAIN.CORE.BASE
 {
-    public class AuditableEntity : ISoftDeleteableEntity
+    public class AuditableEntity : BaseEntity, ISoftDeleteableEntity
     {
         public string? DeletedBy { get; set; }
-        public DateTime? DeletedTime { get; set; }
-        public string? UpdatedBy { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public Guid Id { get; set; }
-        public Status Status { get; set; }
+        public DateTime? DeletedDate { get; set; }
+        
     }
 }

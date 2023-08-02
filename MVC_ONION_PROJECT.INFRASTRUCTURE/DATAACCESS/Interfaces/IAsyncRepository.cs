@@ -8,7 +8,7 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.DATAACCESS.Interfaces
 {
     public interface IAsyncRepository
     {
-        int SaveChangeAsync();
+        Task<int> SaveChangeAsync();
     }
 
 }
