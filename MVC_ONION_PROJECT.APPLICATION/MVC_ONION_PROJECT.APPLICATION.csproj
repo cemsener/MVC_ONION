@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTo%27s\" />
+    <ProjectReference Include="..\MVC_ONION_PROJECT.INFRASTRUCTURE\MVC_ONION_PROJECT.INFRASTRUCTURE.csproj" />
   </ItemGroup>
 
 </Project>

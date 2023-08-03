@@ -1,5 +1,6 @@
 using MVC_ONION_PROJECT.INFRASTRUCTURE.EXTENSION;
 using MVC_ONION_PROJECT.APPLICATION.Extension;
+using MVC_ONION_PROJECT.PRESENTATION.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructureService(builder.Configuration);
 builder.Services.AddApplicationService();
+builder.Services.AddPresentationService();
 
 var app = builder.Build();
 
@@ -27,6 +29,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Category}/{action=Index}/{id?}");
 
 app.Run();
