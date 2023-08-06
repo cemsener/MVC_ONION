@@ -5,7 +5,7 @@ using MVC_ONION_PROJECT.PRESENTATION.Extension;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+
 builder.Services.AddInfrastructureService(builder.Configuration);
 builder.Services.AddApplicationService();
 builder.Services.AddPresentationService();
@@ -29,6 +29,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Category}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
