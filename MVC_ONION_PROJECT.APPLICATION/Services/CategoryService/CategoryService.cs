@@ -38,6 +38,18 @@ namespace MVC_ONION_PROJECT.APPLICATION.Services.CategoryService
             return new SuccessDataResult<CategoryDTo>(_mapper.Map<CategoryDTo>(category), "Kategori Eklendi.");
         }
 
+        public async Task<IResult> DeleteAsync(Guid id)
+        {
+            var category = await _categoryRepository.GetByIdAsync(id);
+            if (category == null)
+            {
+                return new ErrorResult("Kategori Bulunamadı");
+            }
+            await _categoryRepository.DeletableAsync(category);
+            await _categoryRepository.SaveChangeAsync();
+            return new SuccessResult("Kategori Silme İşlemi Başarılı");
+        }
+
         public async Task<IDataResult<List<CategoryListDTo>>> GetAllAsync()
         {
             var categories = await _categoryRepository.GetAllAsync();
@@ -49,6 +61,31 @@ namespace MVC_ONION_PROJECT.APPLICATION.Services.CategoryService
 
             return new SuccessDataResult<List<CategoryListDTo>>(_mapper.Map<List<CategoryListDTo>>(categories), "Category Listeleme Başarılı");
         }
-            
+
+        public async Task<IDataResult<CategoryDTo>> GetByIdAsync(Guid id)
+        {
+            var category = await _categoryRepository.GetByIdAsync(id);
+            if (category == null)
+            {
+                return new ErrorDataResult<CategoryDTo>("Kategori Bulunamadı");
+            }
+
+            return new SuccessDataResult<CategoryDTo>(_mapper.Map<CategoryDTo>(category), "Kategori Detayı Gösteriliyor");
+        }
+
+        public async Task<IDataResult<CategoryDTo>> UpdateAsync(CategoryUpdateDTo categoryUpdateDTo)
+        {
+            var category = await _categoryRepository.GetByIdAsync(categoryUpdateDTo.Id);
+            if (category == null)
+            {
+                return new ErrorDataResult<CategoryDTo>("Kategroi Bulunamadı");
+            }
+
+            var updatedCategory =  _mapper.Map(categoryUpdateDTo, category);
+            await _categoryRepository.UpdateAsync(updatedCategory);
+            await _categoryRepository.SaveChangeAsync();
+
+            return new SuccessDataResult<CategoryDTo>(_mapper.Map<CategoryDTo>(updatedCategory), "Kategori Güncelleme Başarılı");
+        }
     }
 }

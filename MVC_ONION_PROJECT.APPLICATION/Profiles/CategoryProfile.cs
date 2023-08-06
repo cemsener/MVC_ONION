@@ -16,6 +16,7 @@ namespace MVC_ONION_PROJECT.APPLICATION.Profiles
             CreateMap<Category, CategoryListDTo>();
             CreateMap<Category, CategoryDTo>();
             CreateMap<CategoryCreateDTo, Category>();
+            CreateMap<CategoryUpdateDTo, Category>();
         }
     }
 }

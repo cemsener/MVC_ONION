@@ -17,6 +17,32 @@ namespace MVC_ONION_PROJECT.APPLICATION.Services.CategoryService
         /// <returns>Liste tipinde CategoryListDTo döner</returns>
         Task<IDataResult<List<CategoryListDTo>>> GetAllAsync();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryCreateDTo"></param>
+        /// <returns></returns>
         Task<IDataResult<CategoryDTo>> AddAsync(CategoryCreateDTo categoryCreateDTo);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IDataResult<CategoryDTo>> GetByIdAsync(Guid id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IResult>DeleteAsync(Guid id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryUpdateDTo"></param>
+        /// <returns></returns>
+        Task<IDataResult<CategoryDTo>> UpdateAsync(CategoryUpdateDTo categoryUpdateDTo);
     }
 }

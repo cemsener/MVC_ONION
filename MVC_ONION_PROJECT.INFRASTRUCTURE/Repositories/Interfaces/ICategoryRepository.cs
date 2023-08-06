@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MVC_ONION_PROJECT.INFRASTRUCTURE.Repositories.Interfaces
 {
-    public interface ICategoryRepository : IAsyncInsertableRepository<Category>, IAsyncFindableRepository<Category>,IAsyncRepository, IAsyncQueryableRepository<Category>
+    public interface ICategoryRepository : IAsyncInsertableRepository<Category>, IAsyncFindableRepository<Category>,IAsyncRepository, IAsyncQueryableRepository<Category>, IAsyncDeletableRepository<Category>, IAsyncUpdateableRepository<Category>
     {
     }
 }

@@ -9,7 +9,10 @@ namespace MVC_ONION_PROJECT.PRESENTATION.Profiles
         public CategoryProfile()
         {
             CreateMap<CategoryListDTo, CategoryListVM>();
-            CreateMap<CategoryCreateVM, CategoryDTo>();
+            CreateMap<CategoryCreateVM, CategoryCreateDTo>();
+            CreateMap<CategoryDTo, CategoryDetailVM>();
+            CreateMap<CategoryDTo, CategoryUpdateVM>();
+            CreateMap<CategoryUpdateVM, CategoryUpdateDTo>();
         }
     }
 }

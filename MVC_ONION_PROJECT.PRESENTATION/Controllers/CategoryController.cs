@@ -32,18 +32,23 @@ namespace MVC_ONION_PROJECT.PRESENTATION.Controllers
         }
 
        
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(Guid id)
         {
-            return View();
+            var result = await _categoryService.GetByIdAsync(id);
+            if (!result.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(_mapper.Map<CategoryDetailVM>(result.Data));
         }
 
-        // GET: CategoryController/Create
+        
         public async Task<IActionResult> Create()
         {
             return View();
         }
 
-        // POST: CategoryController/Create
+        
         [HttpPost]
         
         public async Task<IActionResult> Create(CategoryCreateVM categoryCreateVM)
@@ -63,45 +68,53 @@ namespace MVC_ONION_PROJECT.PRESENTATION.Controllers
         }
 
         
-        public ActionResult Update(int id)
+        public async Task<IActionResult> Update(Guid id)
         {
-            return View();
+            var result = await _categoryService.GetByIdAsync(id);
+            if (!result.IsSuccess)
+            {
+                Console.WriteLine(result.Message);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(_mapper.Map<CategoryUpdateVM>(result.Data));
         }
 
         
         [HttpPost]
         
-        public ActionResult Update(int id, IFormCollection collection)
+        public async Task<IActionResult> Update(CategoryUpdateVM categoryUpdateVM)
         {
-            try
+            if (!ModelState.IsValid)
             {
+                return View(categoryUpdateVM);
+            }
+            var result = await _categoryService.UpdateAsync(_mapper.Map<CategoryUpdateDTo>(categoryUpdateVM));
+
+            if (!result.IsSuccess)
+            {
+                Console.WriteLine(result.Message);
                 return RedirectToAction(nameof(Index));
+
             }
-            catch
-            {
-                return View();
-            }
+
+            Console.WriteLine(result.Message);
+            return RedirectToAction(nameof(Index));
         }
 
         
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            return View();
+            var result = await _categoryService.DeleteAsync(id);
+            if (!result.IsSuccess)
+            {
+                Console.WriteLine(result.Message);
+                return RedirectToAction(nameof(Index));
+            }
+            Console.WriteLine(result.Message);
+            return RedirectToAction(nameof(Index));
         }
 
         
-        [HttpPost]
         
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
