@@ -18,6 +18,7 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.APPCONTEXT
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

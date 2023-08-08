@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MVC_ONION_PROJECT.APPLICATION.Services.AuthorService;
 using MVC_ONION_PROJECT.APPLICATION.Services.CategoryService;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace MVC_ONION_PROJECT.APPLICATION.Extension
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IAuthorService, AuthorService>();
             return services;
         }
     }

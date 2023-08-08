@@ -19,6 +19,7 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.EXTENSION
             services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("AppConnection")));
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
 
             return services;
         }

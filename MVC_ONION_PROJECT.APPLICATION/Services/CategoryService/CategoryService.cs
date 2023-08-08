@@ -75,11 +75,29 @@ namespace MVC_ONION_PROJECT.APPLICATION.Services.CategoryService
 
         public async Task<IDataResult<CategoryDTo>> UpdateAsync(CategoryUpdateDTo categoryUpdateDTo)
         {
+
+
             var category = await _categoryRepository.GetByIdAsync(categoryUpdateDTo.Id);
             if (category == null)
             {
                 return new ErrorDataResult<CategoryDTo>("Kategroi Bulunamadı");
             }
+
+            var categories = await _categoryRepository.GetAllAsync();
+
+            var newCategories = categories.ToList();
+            newCategories.Remove(category);
+
+            var hasCategory = newCategories.Any(x=>x.Name == categoryUpdateDTo.Name);
+
+            if (hasCategory)
+            {
+                return new ErrorDataResult<CategoryDTo>("Kategroi zaten kayıtlı");
+            }
+
+
+            var hasCaregory = await _categoryRepository.AnyAsync(x=>x.Name.ToLower().Equals(categoryUpdateDTo.Name.ToLower()));
+
 
             var updatedCategory =  _mapper.Map(categoryUpdateDTo, category);
             await _categoryRepository.UpdateAsync(updatedCategory);

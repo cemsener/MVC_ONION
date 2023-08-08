@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MVC_ONION_PROJECT.PRESENTATION.Models.AuthorVMs.AuthorListVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="card-body px-0 pt-0 pb-2">
+    <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+                        
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" asp-controller="Author" asp-action="Update" asp-route-id="@item.Id">Update</a>
+                            <a class="btn btn-primary" asp-controller="Author" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            <a class="btn btn-danger" asp-controller="Author" asp-action="Delete" asp-route-id="@item.Id" onclick="return showDelete()">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

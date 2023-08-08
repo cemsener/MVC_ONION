@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using System.Reflection;
 
 namespace MVC_ONION_PROJECT.PRESENTATION.Extension
 {
@@ -8,7 +10,9 @@ namespace MVC_ONION_PROJECT.PRESENTATION.Extension
         {
 
             services.AddControllersWithViews(opt=>opt.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes=true);
-            //her türlü null izni veriyor, tek tek Vm lere ? yazmak yerine bunu kullan
+            //her türlü null izni veriyor, tek tek VM lere ? yazmak yerine bunu kullan
+
+            services.AddFluentValidationAutoValidation().AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
