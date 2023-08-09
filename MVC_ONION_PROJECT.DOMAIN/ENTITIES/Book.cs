@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MVC_ONION_PROJECT.DOMAIN.ENTITIES
 {
-    public class Author : AuditableEntity
+    public class Book : AuditableEntity
     {
         public string Name { get; set; }
-        public string Surname { get; set; }
-        public DateTime DateofBirth { get; set; }
-        public virtual ICollection<Book> Books { get; set; }
+        public DateTime PublicationDate { get; set; }
+        public Guid AuthorId { get; set; }
+        public virtual Author Author { get; set; }
     }
 }

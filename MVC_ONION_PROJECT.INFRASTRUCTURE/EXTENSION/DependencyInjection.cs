@@ -16,10 +16,14 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.EXTENSION
     {
         public static IServiceCollection AddInfrastructureService(this IServiceCollection services, IConfiguration configuration )
         {
-            services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("AppConnection")));
-
+            services.AddDbContext<AppDbContext>(opt =>
+            {
+                opt.UseLazyLoadingProxies();
+                opt.UseSqlServer(configuration.GetConnectionString("AppConnection"));
+            });
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
 
             return services;
         }

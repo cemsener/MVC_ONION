@@ -19,6 +19,7 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.APPCONTEXT
 
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

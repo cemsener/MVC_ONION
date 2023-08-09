@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace MVC_ONION_PROJECT.INFRASTRUCTURE.Repositories.Interfaces
 {
-    public interface IAuthorRepository : IAsyncRepository, IAsyncInsertableRepository<Author>, IAsyncFindableRepository<Author>, IAsyncQueryableRepository<Author>, IAsyncDeletableRepository<Author>, IAsyncUpdateableRepository<Author>
+    public interface IBookRepository : IAsyncRepository, IAsyncInsertableRepository<Book>, IAsyncFindableRepository<Book>, IAsyncQueryableRepository<Book>, IAsyncDeletableRepository<Book>, IAsyncUpdateableRepository<Book>
     {
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MVC_ONION_PROJECT.APPLICATION.DTo_s.Authors;
+using MVC_ONION_PROJECT.APPLICATION.DTo_s.Books;
 using MVC_ONION_PROJECT.APPLICATION.DTo_s.Categories;
 using MVC_ONION_PROJECT.DOMAIN.ENTITIES;
 using System;
@@ -25,6 +26,13 @@ namespace MVC_ONION_PROJECT.APPLICATION.Profiles
             CreateMap<AuthorCreateDTo, Author>();
             CreateMap<Author, AuthorDTo>();
             CreateMap<Author, AuthorListDTo>();
+            CreateMap<AuthorUpdateDto, Author>();
+            #endregion
+
+            #region Book Profiles
+            CreateMap<Book, BookListDTo>().ForMember(dest => dest.AuthorName, config => config.MapFrom(x=>x.Author.Name + " " + x.Author.Surname));
+            CreateMap<BookCreateDTo, Book>();
+            CreateMap<Book, BookDTo>();
             #endregion
 
 

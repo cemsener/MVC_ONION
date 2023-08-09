@@ -1,17 +1,15 @@
-﻿using MVC_ONION_PROJECT.DOMAIN.CORE.BASE;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVC_ONION_PROJECT.DOMAIN.ENTITIES
+namespace MVC_ONION_PROJECT.APPLICATION.DTo_s.Authors
 {
-    public class Author : AuditableEntity
+    public class AuthorUpdateDto
     {
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime DateofBirth { get; set; }
-        public virtual ICollection<Book> Books { get; set; }
     }
 }
