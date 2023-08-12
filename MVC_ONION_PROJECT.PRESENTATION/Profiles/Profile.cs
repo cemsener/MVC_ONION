@@ -32,9 +32,15 @@ namespace MVC_ONION_PROJECT.PRESENTATION.Profiles
             #region Book Profiles
             CreateMap<BookCreateVM, BookCreateDTo>();
             CreateMap<BookListDTo, BookListVM>();
-            
+            CreateMap<BookDTo, BookDetailVM>();
+            CreateMap<BookDTo, BookUpdateVM>();
+            CreateMap<BookUpdateVM, BookUpdateDTo>();
+            CreateMap<BookDTo, BookDetailDTo>();
+            CreateMap<BookDetailDTo, BookDetailVM>();
+            CreateMap<BookDetailDTo, BookUpdateVM>();
             #endregion
 
+            
         }
     }
 }

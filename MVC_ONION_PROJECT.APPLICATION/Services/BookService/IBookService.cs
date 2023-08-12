@@ -12,5 +12,8 @@ namespace MVC_ONION_PROJECT.APPLICATION.Services.BookService
     {
         Task<IDataResult<BookDTo>> AddAsync(BookCreateDTo bookCreateDTo);
         Task<IDataResult<List<BookListDTo>>> GetAllAsync();
+        Task<IDataResult<BookDetailDTo>> GetByIdAsync(Guid id);
+        Task<IResult>DeleteAsync(Guid id);
+        Task<IDataResult<BookDTo>> UpdateAsync(BookUpdateDTo bookUpdateDTo);
     }
 }

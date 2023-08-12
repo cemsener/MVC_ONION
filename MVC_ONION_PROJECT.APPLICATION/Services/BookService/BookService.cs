@@ -32,6 +32,18 @@ namespace MVC_ONION_PROJECT.APPLICATION.Services.BookService
             return new SuccessDataResult<BookDTo>(_mapper.Map<BookDTo>(book), "Kİtap Ekleme Başarılı");
         }
 
+        public async Task<IResult> DeleteAsync(Guid id)
+        {
+            var book = await _bookRepository.GetByIdAsync(id);
+            if (book == null)
+            {
+                return new ErrorResult("Kitap Bulunamadı");
+            }
+            await _bookRepository.DeletableAsync(book);
+            await _bookRepository.SaveChangeAsync();
+            return new SuccessResult("Kitap Silme İşlemi Başarılı");
+        }
+
         public async Task<IDataResult<List<BookListDTo>>> GetAllAsync()
         {
             var books = await _bookRepository.GetAllAsync();
@@ -44,5 +56,42 @@ namespace MVC_ONION_PROJECT.APPLICATION.Services.BookService
             return new SuccessDataResult<List<BookListDTo>>(_mapper.Map<List<BookListDTo>>(books), "Kitap Listeleme Başarılı");
 
         }
+
+        public async Task<IDataResult<BookDetailDTo>> GetByIdAsync(Guid id)
+        {
+            var book = await _bookRepository.GetByIdAsync(id);
+            if (book == null)
+            {
+                return new ErrorDataResult<BookDetailDTo>("Kitap Bulunamadı");
+            }
+            return new SuccessDataResult<BookDetailDTo>(_mapper.Map<BookDetailDTo>(book), "Kitap Detayları Gösteriliyor");
+        }
+
+        public async Task<IDataResult<BookDTo>> UpdateAsync(BookUpdateDTo bookUpdateDTo)
+        {
+            var book = await _bookRepository.GetByIdAsync(bookUpdateDTo.Id);
+            if (book == null)
+            {
+                return new ErrorDataResult<BookDTo>("Kitap bulunamadı.");
+            }
+            var books = await _bookRepository.GetAllAsync();
+
+            var newBooks = books.ToList();
+            newBooks.Remove(book);
+
+            var hasBook = newBooks.Any(x=>x.Name == bookUpdateDTo.Name);
+
+            if (hasBook)
+            {
+                return new ErrorDataResult<BookDTo>("Kitap Zaten Kayıtlı");
+            }
+
+            var updatedBook = _mapper.Map(bookUpdateDTo, book);
+            await _bookRepository.UpdateAsync(updatedBook);
+            await _bookRepository.SaveChangeAsync();
+
+            return new SuccessDataResult<BookDTo>(_mapper.Map<BookDTo>(updatedBook), "Kitap Güncelleme Başarılı");
+        }
+
     }
 }

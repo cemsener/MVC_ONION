@@ -1,0 +1,41 @@
+﻿@model MVC_ONION_PROJECT.PRESENTATION.Models.BookVMs.BookDetailVM
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1 style="color:white">Book Details</h1>
+</div>
+
+<div class="card col-md-8">
+    <div class="card-body px-3">
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AuthorName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AuthorName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PublicationDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PublicationDate)
+        </dd>
+    </dl>
+        <div>
+            <a class="btn btn-info" asp-action="Index">Back to List</a>
+            <a class="btn btn-warning" asp-controller="Book" asp-action="Update" asp-route-id=@Model.Id>Update</a>
+        </div>
+
+    </div>
+</div>

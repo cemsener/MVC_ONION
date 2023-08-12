@@ -27,13 +27,25 @@ namespace MVC_ONION_PROJECT.PRESENTATION.Controllers
         {
             var books = await _bookService.GetAllAsync();
 
+            if (!books.IsSuccess)
+            {
+                return View(_mapper.Map<List<BookListVM>>(books.Data));
+            }
+
             return View(_mapper.Map<List<BookListVM>>(books.Data));
         }
 
-        
-        public ActionResult Details(int id)
+              
+        public async Task<IActionResult> Details(Guid id)
         {
-            return View();
+            
+            var result = await _bookService.GetByIdAsync(id);
+            //var resultDTo = _mapper.Map<BookDetailDTo>(result.Data);
+            if (!result.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(_mapper.Map<BookDetailVM>(result.Data));
         }
 
         
@@ -51,6 +63,11 @@ namespace MVC_ONION_PROJECT.PRESENTATION.Controllers
         
         public async Task<IActionResult> Create(BookCreateVM model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             var addResult = await _bookService.AddAsync(_mapper.Map<BookCreateDTo>(model));
             
             if (!addResult.IsSuccess)
@@ -63,31 +80,55 @@ namespace MVC_ONION_PROJECT.PRESENTATION.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: BookController/Edit/5
-        public ActionResult Edit(int id)
+        
+        public async Task<IActionResult> Update(Guid id)
         {
-            return View();
-        }
-
-        // POST: BookController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
+            BookUpdateVM vm = new BookUpdateVM()
             {
+                AuthorList = await GetAuthorsAsync()
+            };
+            var result = await _bookService.GetByIdAsync(id);
+            if (!result.IsSuccess)
+            {
+                Console.WriteLine(result.Message);
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(_mapper.Map(result.Data,vm));
         }
 
-        // GET: BookController/Delete/5
-        public ActionResult Delete(int id)
+        
+        [HttpPost]
+        
+        public async Task<IActionResult> Update(BookUpdateVM bookUpdateVM)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(bookUpdateVM);
+            }
+
+            var result = await _bookService.UpdateAsync(_mapper.Map<BookUpdateDTo>(bookUpdateVM));
+
+            if (!result.IsSuccess)
+            {
+                Console.WriteLine(result.Message);
+                return RedirectToAction(nameof(Index));
+            }
+
+            Console.WriteLine(result.Message);
+            return RedirectToAction(nameof(Index));
+        }
+
+        
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _bookService.DeleteAsync(id);
+            if (!result.IsSuccess)
+            {
+                Console.WriteLine(result.Message);
+                return RedirectToAction(nameof(Index));
+            }
+            Console.WriteLine(result.Message);
+            return RedirectToAction(nameof(Index));
         }
 
         private async Task<SelectList> GetAuthorsAsync()

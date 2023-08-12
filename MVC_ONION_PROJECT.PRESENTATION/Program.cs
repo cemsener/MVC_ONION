@@ -1,6 +1,8 @@
 using MVC_ONION_PROJECT.INFRASTRUCTURE.EXTENSION;
 using MVC_ONION_PROJECT.APPLICATION.Extension;
 using MVC_ONION_PROJECT.PRESENTATION.Extension;
+using AspNetCoreHero.ToastNotification.Extensions;
+using AspNetCoreHero.ToastNotification;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,12 @@ builder.Services.AddInfrastructureService(builder.Configuration);
 builder.Services.AddApplicationService();
 builder.Services.AddPresentationService();
 
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 5;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.TopRight;
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +34,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseNotyf();
 
 app.MapControllerRoute(
     name: "default",

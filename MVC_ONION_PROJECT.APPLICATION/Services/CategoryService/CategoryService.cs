@@ -96,9 +96,6 @@ namespace MVC_ONION_PROJECT.APPLICATION.Services.CategoryService
             }
 
 
-            var hasCaregory = await _categoryRepository.AnyAsync(x=>x.Name.ToLower().Equals(categoryUpdateDTo.Name.ToLower()));
-
-
             var updatedCategory =  _mapper.Map(categoryUpdateDTo, category);
             await _categoryRepository.UpdateAsync(updatedCategory);
             await _categoryRepository.SaveChangeAsync();

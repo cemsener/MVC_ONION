@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AspNetCoreHero.ToastNotification;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using System.Reflection;
 
@@ -15,6 +16,13 @@ namespace MVC_ONION_PROJECT.PRESENTATION.Extension
             services.AddFluentValidationAutoValidation().AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddNotyf(config =>
+            {
+                config.HasRippleEffect = true;
+                config.Position = NotyfPosition.BottomRight;
+                config.IsDismissable = true;
+                config.DurationInSeconds = 5;
+            });
             return services;
         }
     }

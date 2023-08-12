@@ -12,7 +12,8 @@ namespace MVC_ONION_PROJECT.APPLICATION.Services.AuthorService
     {
         Task<IDataResult<AuthorDTo>> AddAsync(AuthorCreateDTo authorCreateDTo);
         Task<IDataResult<List<AuthorListDTo>>> GetAllAsync();
-
+        Task<IDataResult<AuthorDTo>> GetByIdAsync(Guid id);
+        Task<IDataResult<AuthorDTo>> UpdateAsync(AuthorUpdateDto authorUpdateDto);
         Task<IResult> DeleteAsync(Guid id);
     }
 }

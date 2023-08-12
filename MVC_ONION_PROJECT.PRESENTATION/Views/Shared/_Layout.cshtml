@@ -176,9 +176,11 @@
                 return true;
             }
             else {
-                false;
+                return false;
             }
         }
+
+        
 
         var ctx1 = document.getElementById("chart-line").getContext("2d");
 
@@ -275,6 +277,10 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="~/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
-
+@await RenderSectionAsync("Scripts", required:false)
+@*@await Component.InvokeAsync("Notyf")*@
 </html>

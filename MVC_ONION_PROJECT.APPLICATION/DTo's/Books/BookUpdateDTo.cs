@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVC_ONION_PROJECT.APPLICATION.DTo_s.Authors
+namespace MVC_ONION_PROJECT.APPLICATION.DTo_s.Books
 {
-    public class AuthorUpdateDto
+    public class BookUpdateDTo
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Surname { get; set; }
-        public DateTime DateofBirth { get; set; }
+        public string AuthorName { get; set; }
+        public DateTime PublicationDate { get; set; }
     }
 }

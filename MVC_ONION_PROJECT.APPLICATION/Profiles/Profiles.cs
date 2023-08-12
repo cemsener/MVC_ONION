@@ -33,6 +33,8 @@ namespace MVC_ONION_PROJECT.APPLICATION.Profiles
             CreateMap<Book, BookListDTo>().ForMember(dest => dest.AuthorName, config => config.MapFrom(x=>x.Author.Name + " " + x.Author.Surname));
             CreateMap<BookCreateDTo, Book>();
             CreateMap<Book, BookDTo>();
+            CreateMap<BookUpdateDTo, Book>();
+            CreateMap<Book, BookDetailDTo>().ForMember(dest => dest.AuthorName, config => config.MapFrom(x => x.Author.Name + " " + x.Author.Surname));
             #endregion
 
 

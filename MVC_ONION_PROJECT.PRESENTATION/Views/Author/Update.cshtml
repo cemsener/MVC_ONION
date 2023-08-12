@@ -1,4 +1,4 @@
-﻿@model MVC_ONION_PROJECT.PRESENTATION.Models.CategoryVMs.CategoryUpdateVM
+﻿@model MVC_ONION_PROJECT.PRESENTATION.Models.AuthorVMs.AuthorUpdateVM
 
 @{
     ViewData["Title"] = "Update";
@@ -6,30 +6,34 @@
 }
 
 <div>
-    <h1 style="color:white">Update Category</h1>
+    <h1 style="color:white">Update Author</h1>
 </div>
-
-
 <div class="row">
     <div class="card col-md-4">
         <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="Surname" class="control-label"></label>
+                <input asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-warning" />
+                <label asp-for="DateofBirth" class="control-label"></label>
+                <input asp-for="DateofBirth" class="form-control" />
+                <span asp-validation-for="DateofBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
                 <a class="btn btn-info" asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
+
+
 
