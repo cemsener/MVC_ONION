@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Microsoft.EntityFrameworkCore.Storage;
 using MVC_ONION_PROJECT.DOMAIN.CORE.BASE;
 using MVC_ONION_PROJECT.DOMAIN.CORE.Interfaces;
 using MVC_ONION_PROJECT.INFRASTRUCTURE.DATAACCESS.Interfaces;
@@ -13,11 +14,11 @@ using System.Windows.Markup;
 
 namespace MVC_ONION_PROJECT.INFRASTRUCTURE.DATAACCESS.EntityFramework
 {
-    public abstract class BaseRepository<TEntity> : IRepository, IAsyncRepository, IAsyncFindableRepository<TEntity>, IAsyncInsertableRepository<TEntity>, IAsyncQueryableRepository<TEntity>, IAsyncOrderableRepository<TEntity>, IAsyncDeletableRepository<TEntity>, IAsyncUpdateableRepository<TEntity> where TEntity : BaseEntity
+    public abstract class BaseRepository<TEntity> : IRepository, IAsyncRepository, IAsyncFindableRepository<TEntity>, IAsyncInsertableRepository<TEntity>, IAsyncQueryableRepository<TEntity>, IAsyncOrderableRepository<TEntity>, IAsyncDeletableRepository<TEntity>, IAsyncUpdateableRepository<TEntity>, ITransactionRepository, IDeletableRepository<TEntity> where TEntity : BaseEntity
     {
-        private readonly DbContext _context;
+        protected readonly DbContext _context;
 
-        private readonly DbSet<TEntity> _table;
+        protected readonly DbSet<TEntity> _table;
 
         public BaseRepository(DbContext context)
         {
@@ -41,9 +42,24 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.DATAACCESS.EntityFramework
             return expression is null ? GetAllActives().AnyAsync() : GetAllActives().AnyAsync(expression);
         }
 
+        public Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
+        {
+            return _context.Database.BeginTransactionAsync(cancellationToken);
+        }
+
+        public Task<IExecutionStrategy> CreateExecutionStrategy()
+        {
+            return Task.FromResult(_context.Database.CreateExecutionStrategy());
+        }
+
         public Task DeletableAsync(TEntity entity)
         {
             return Task.FromResult(_table.Remove(entity)); //silmenin async işlemi yok
+        }
+
+        public bool Delete(TEntity entity)
+        {
+            throw new NotImplementedException();
         }
 
         public Task DeleteRangeAsync(IEnumerable<TEntity> entities)

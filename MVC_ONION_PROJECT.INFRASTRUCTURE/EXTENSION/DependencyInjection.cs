@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MVC_ONION_PROJECT.INFRASTRUCTURE.APPCONTEXT;
 using MVC_ONION_PROJECT.INFRASTRUCTURE.Repositories.Concretes;
 using MVC_ONION_PROJECT.INFRASTRUCTURE.Repositories.Interfaces;
+using MVC_ONION_PROJECT.INFRASTRUCTURE.Seeds;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,14 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.EXTENSION
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
+
+            AdminSeed.SeedAsync(configuration).GetAwaiter().GetResult();
+            //async işlemi sync gibi kullandırdık ve mig atılırken yoruma alınacak!!!
 
             return services;
         }
+
+        
     }
 }

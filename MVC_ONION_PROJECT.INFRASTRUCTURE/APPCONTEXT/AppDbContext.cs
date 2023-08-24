@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MVC_ONION_PROJECT.DOMAIN.CORE.BASE;
@@ -8,6 +9,7 @@ using MVC_ONION_PROJECT.INFRASTRUCTURE.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,11 +17,17 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.APPCONTEXT
 {
     public class AppDbContext : IdentityDbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        private readonly IHttpContextAccessor? _httpContextAccessor;
+
+        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor? httpContextAccessor) : base(options)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
 
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -43,7 +51,7 @@ namespace MVC_ONION_PROJECT.INFRASTRUCTURE.APPCONTEXT
         private void SetBaseProperties()
         {
             var entries = ChangeTracker.Entries<BaseEntity>();
-            var userId = "User Bulunamadı";
+            var userId = _httpContextAccessor?.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "User Bulunamadı";
 
             foreach (var entry in entries)
             {

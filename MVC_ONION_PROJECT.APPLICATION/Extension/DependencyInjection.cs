@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MVC_ONION_PROJECT.APPLICATION.Services.AccountService;
+using MVC_ONION_PROJECT.APPLICATION.Services.AdminService;
 using MVC_ONION_PROJECT.APPLICATION.Services.AuthorService;
 using MVC_ONION_PROJECT.APPLICATION.Services.BookService;
 using MVC_ONION_PROJECT.APPLICATION.Services.CategoryService;
@@ -19,6 +21,8 @@ namespace MVC_ONION_PROJECT.APPLICATION.Extension
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IAccountService, AccountService>();
             return services;
         }
     }
